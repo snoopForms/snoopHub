@@ -165,6 +165,8 @@ export function FileInput({
           return (
             <div
               key={index}
+              aria-label={`You've successfully uploaded the file ${fileName}`}
+              tabIndex={0}
               className="fb-bg-input-bg-selected fb-border-border fb-relative fb-m-2 fb-rounded-md fb-border">
               <div className="fb-absolute fb-right-0 fb-top-0 fb-m-2">
                 <div className="fb-bg-survey-bg fb-flex fb-h-5 fb-w-5 fb-cursor-pointer fb-items-center fb-justify-center fb-rounded-md">
@@ -217,17 +219,9 @@ export function FileInput({
 
         <label htmlFor={uniqueHtmlFor} onDragOver={handleDragOver} onDrop={handleDrop}>
           {showUploader ? (
-            <div
-              className="focus:fb-outline-brand fb-flex fb-flex-col fb-items-center fb-justify-center fb-py-6 hover:fb-cursor-pointer"
-              tabIndex={1}
-              onKeyDown={(e) => {
-                // Accessibility: if spacebar was pressed pass this down to the input
-                if (e.key === " ") {
-                  e.preventDefault();
-                  document.getElementById(uniqueHtmlFor)?.click();
-                  document.getElementById(uniqueHtmlFor)?.focus();
-                }
-              }}>
+            <button
+              className="focus:fb-outline-brand fb-flex fb-flex-col fb-items-center fb-justify-center fb-py-6 hover:fb-cursor-pointer w-full"
+              type="button">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -242,7 +236,9 @@ export function FileInput({
                 />
               </svg>
               <p className="fb-text-placeholder fb-mt-2 fb-text-sm dark:fb-text-slate-400">
-                <span className="fb-font-medium">Click or drag to upload files.</span>
+                <label htmlFor={uniqueHtmlFor} className="fb-font-medium">
+                  Click or drag to upload files.
+                </label>
               </p>
               <input
                 type="file"
@@ -258,7 +254,7 @@ export function FileInput({
                 }}
                 multiple={allowMultipleFiles}
               />
-            </div>
+            </button>
           ) : null}
         </label>
       </div>
